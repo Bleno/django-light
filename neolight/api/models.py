@@ -34,3 +34,49 @@ class LBBase(models.Model):
         """docstring for Meta"""
         db_table = 'lb_base'
         #fields = ('id_base', 'struct',)
+
+
+class LBDocument():
+    """
+    Documents Object-Relational Mapping.
+    """
+
+    def __init__(self, id_doc, document, dt_doc=None, dt_last_up=None,
+        dt_del=None, dt_idx=None, **kwargs):
+        self.id_doc = id_doc
+        self.document = document
+        self.dt_doc = dt_doc
+        self.dt_last_up = dt_last_up
+        self.dt_del = dt_del
+        self.dt_idx = dt_idx
+
+        for k in kwargs:
+            if isinstance(kwargs[k], list)\
+                 and all(v is None for v in kwargs[k]):
+                kwargs[k]= None # Set value to None if is an empty list
+            elif kwargs[k] == '':
+                kwargs[k]= None
+        self.__dict__.update(kwargs)
+
+    class Meta:
+        abstract = True
+
+
+class LBFile():
+    """
+    Files Object-Relational Mapping.
+    """
+
+    def __init__(self, id_file, id_doc, filename, file, mimetype, filesize,
+            filetext=None, dt_ext_text=None):
+        self.id_file = id_file
+        self.id_doc = id_doc
+        self.filename = filename
+        self.file = file
+        self.mimetype = mimetype
+        self.filesize = filesize
+        self.filetext = filetext
+        self.dt_ext_text = dt_ext_text
+
+    class Meta:
+        abstract = True
