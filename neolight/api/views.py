@@ -38,12 +38,12 @@ def snippet_list(request):
 
 
 @csrf_exempt
-def snippet_detail(request, pk):
+def snippet_detail(request, name):
     """
     Retrieve, update or delete a code snippet.
     """
     try:
-        snippet = LBBase.objects.get(pk=pk)
+        snippet = LBBase.objects.get(name=name)
     except LBBase.DoesNotExist:
         return HttpResponse(status=404)
 
