@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.4"
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+script:
+  - cd neolight
+  - python manage.py test snippets
+  - python manage.py test neolight
+  - python manage.py test api
+  - coverage run --source=snippets manage.py test snippets
+after_success: coveralls
